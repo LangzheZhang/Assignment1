@@ -34,6 +34,7 @@ $routes->get('/', 'NINEPERCENT::index');
 $routes->get('/image/(:any)', 'Media::image/$1');
 $routes->get('/heroes', 'NINEPERCENT::index');
 
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing
