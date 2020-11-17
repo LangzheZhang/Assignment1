@@ -53,9 +53,33 @@ return $parser->setData($fields)
       $record = $member->find($id);
       // get a template parser
       $parser = \Config\Services::parser();
+      $table = new \CodeIgniter\View\Table();
+      $headings = $member->fields;
+      $table->addRow($headings[0],$record['id'])
+            ->addRow($headings[1],$record['name'])
+            ->addRow($headings[2],$record['age'])
+            ->addRow($headings[3],$record['city'])
+            ->addRow($headings[4],$record['company'])
+            ->addRow($headings[5],$record['team play'])
+            ->addRow($headings[6],$record['fans name'])
+            ->addRow($headings[7],"<img src=\"/image/".$record['image']."\"/>");
+      $template = [
+        'table_open' => '<table cellpadding="5px">',
+        'cell_start' => '<td style="border: 1px solid #dddddd;">',
+        'row_alt_start' => '<tr style="background-color:#dddddd">',
+     ];
+      $table->setTemplate($template);
+      
+      $fields = [
+         'title' => 'Member',
+         'heading' => 'Member',
+         'footer' => 'Langzhe Zhang'
+         ];
       // tell it about the substitions
-      return $parser->setData($record)
-      // and have it render the template with those
-      ->render('onemember');
+     return $parser->setData($fields)
+               ->render('templates\top') .
+       $table->generate() .
+        $parser->setData($fields)
+               ->render('templates\bottom');
     }
 }
